@@ -1,0 +1,27 @@
+.card{
+  width:70vw;
+  margin: 0 auto;
+}
+
+tr{
+  border: 1px solid blue;
+  margin: 1%;
+  padding: 3%;
+}
+
+input{
+ width:95%;
+ position:relative;
+ left:0;
+}
+
+label{
+  /* display:inline; */
+  font-weight:700;
+  font-size:20px;
+  margin:1.5vw 2px 1.5vw 2px;
+}
+
+.btn{
+  margin-top:2vw;
+}
