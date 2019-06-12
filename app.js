@@ -2,9 +2,11 @@ let name = ""
 let time = ""
 let freq = ""
 let destination = ""
+let database = firebase.database();
+let ref = database.ref()
 
 $(".btn").on("click", function () {
-  
+
   if ($("#train-name").val() === "" || $("#train-time").val() === "" || $("#train-freq").val() === "" || $("#train-destination").val() === "") {
     let newDiv = $("<h4>");
     newDiv.text("please fill all fields");
@@ -20,15 +22,14 @@ $(".btn").on("click", function () {
     freq = $("#train-freq").val()
   }
 
-  let database = firebase.database()
-
-  let ref = database.ref()
+ 
 
   ref.set({
     time: time,
     name: name,
     destination: destination,
-    freq: freq
+    freq: freq,
+    minutesAway: 20
   });
 
   ref.on("value", function (data) {
@@ -37,12 +38,14 @@ $(".btn").on("click", function () {
     let newTime = $("<td>")
     let newDestionation = $("<td>")
     let newFreq = $("<td>")
+    let newMinutes = $("<td>")
 
     newName.text(data.val().name)
     newTime.text(data.val().time);
     newFreq.text(data.val().freq);
     newDestionation.text(data.val().destination);
-    newRow.append(newName, newTime, newDestionation, newFreq)
+    newMinutes.text(data.val().minutesAway)
+    newRow.append(newName, newTime, newDestionation, newFreq, newMinutes)
     $("#train-table").append(newRow)
   })
 
@@ -51,28 +54,25 @@ $(".btn").on("click", function () {
 
 
 })
-i = 0;
-if (i === 0) {
-  window.onload = function () {
-    console.log("looping correctly")
 
-    let database = firebase.database();
-    let ref = database.ref()
-    ref.on("value", function (data) {
-      let newRow = $("<tr>")
-      let newName = $("<td>")
-      let newTime = $("<td>")
-      let newDestionation = $("<td>")
-      let newFreq = $("<td>")
 
-      newName.text(data.val().name)
-      newTime.text(data.val().time);
-      newFreq.text(data.val().freq);
-      newDestionation.text(data.val().destination);
-      newRow.append(newName, newTime, newDestionation, newFreq)
-      $("#train-table").append(newRow)
-    })
 
-  }
-}
-i++
+
+ref.on("value", function (data) {
+  let newRow = $("<tr>")
+  let newName = $("<td>")
+  let newTime = $("<td>")
+  let newDestionation = $("<td>")
+  let newFreq = $("<td>")
+  let newMinutes = $("<td>")
+
+  newName.text(data.val().name)
+  newTime.text(data.val().time);
+  newFreq.text(data.val().freq);
+  newMinutes.text(data.val().minutesAway);
+  newDestionation.text(data.val().destination);
+  newRow.append(newName, newTime, newDestionation, newFreq, newMinutes)
+  $("#train-table").append(newRow)
+})
+
+
