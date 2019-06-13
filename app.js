@@ -21,10 +21,12 @@ $(".btn").on("click", function () {
     destination = $("#train-destination").val()
     freq = $("#train-freq").val()
   }
+  let n = new Date();
+  let timer = n.getTime()
 
- 
 
-  ref.set({
+
+  ref.push({
     time: time,
     name: name,
     destination: destination,
@@ -32,22 +34,6 @@ $(".btn").on("click", function () {
     minutesAway: 20
   });
 
-  ref.on("value", function (data) {
-    let newRow = $("<tr>")
-    let newName = $("<td>")
-    let newTime = $("<td>")
-    let newDestionation = $("<td>")
-    let newFreq = $("<td>")
-    let newMinutes = $("<td>")
-
-    newName.text(data.val().name)
-    newTime.text(data.val().time);
-    newFreq.text(data.val().freq);
-    newDestionation.text(data.val().destination);
-    newMinutes.text(data.val().minutesAway)
-    newRow.append(newName, newTime, newDestionation, newFreq, newMinutes)
-    $("#train-table").append(newRow)
-  })
 
 
 
@@ -58,20 +44,24 @@ $(".btn").on("click", function () {
 
 
 
-ref.on("value", function (data) {
-  let newRow = $("<tr>")
-  let newName = $("<td>")
-  let newTime = $("<td>")
-  let newDestionation = $("<td>")
-  let newFreq = $("<td>")
-  let newMinutes = $("<td>")
+database.ref().on("child_added", function (data) {
+  let newRow = $("<tr>");
+  let nameItem = $("<td>");
+  nameItem.text(data.val().name);
 
-  newName.text(data.val().name)
-  newTime.text(data.val().time);
-  newFreq.text(data.val().freq);
-  newMinutes.text(data.val().minutesAway);
-  newDestionation.text(data.val().destination);
-  newRow.append(newName, newTime, newDestionation, newFreq, newMinutes)
+  let timeItem = $("<td>");
+  timeItem.text(data.val().time);
+
+  let destinationItem = $("<td>");
+  destinationItem.text(data.val().destination);
+
+  let freqItem = $("<td>");
+  freqItem.text(data.val().freq);
+
+  let minutesItem = $("<td>");
+  minutesItem.text(data.val().minutesAway)
+
+  newRow.append(nameItem, destinationItem, freqItem, timeItem, minutesItem)
   $("#train-table").append(newRow)
 })
 
