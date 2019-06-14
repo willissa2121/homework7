@@ -21,8 +21,7 @@ $(".btn").on("click", function () {
     destination = $("#train-destination").val()
     freq = $("#train-freq").val()
   }
-  let n = new Date();
-  let timer = n.getTime()
+
 
 
 
@@ -30,8 +29,7 @@ $(".btn").on("click", function () {
     time: time,
     name: name,
     destination: destination,
-    freq: freq,
-    minutesAway: 20
+    freq: freq
   });
 
 
@@ -50,7 +48,16 @@ database.ref().on("child_added", function (data) {
   nameItem.text(data.val().name);
 
   let timeItem = $("<td>");
-  timeItem.text(data.val().time);
+
+  var firstTime = data.val().time
+  var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+  var currentTime = moment();
+  var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+  var tRemainder = diffTime % data.val().freq;
+  var tMinutesTillTrain = data.val().freq - tRemainder;
+
+
+  timeItem.text(tMinutesTillTrain);
 
   let destinationItem = $("<td>");
   destinationItem.text(data.val().destination);
@@ -59,10 +66,15 @@ database.ref().on("child_added", function (data) {
   freqItem.text(data.val().freq);
 
   let minutesItem = $("<td>");
-  minutesItem.text(data.val().minutesAway)
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  minutesItem.text("Arriving at: " + moment(nextTrain).format("hh:mm"))
 
   newRow.append(nameItem, destinationItem, freqItem, timeItem, minutesItem)
   $("#train-table").append(newRow)
 })
+
+
+
+
 
 

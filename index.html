@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
 </head>
 
@@ -27,7 +29,7 @@
             Featured
           </div>
           <div class="card-body">
-            <table id = "train-table" style=" width: 100%">
+            <table id="train-table" style=" width: 100%">
               <tr>
                 <th>Train Name</th>
                 <th>Destination</th>
@@ -35,14 +37,7 @@
                 <th>Next Arrival</th>
                 <th>Minutes Away</th>
               </tr>
-              <tr>
-                <td>Scotts Train</td>
-                <td>Wenatchee</td>
-                <td>10</td>
-                <td>10</td>
-                <td>5</td>
 
-              </tr>
             </table>
           </div>
         </div>
@@ -63,13 +58,13 @@
           <label for="train-name">Destination</label>
           <input class="form-control" type="text" id="train-destination" placeholder="Trains destination"></input>
 
-          <label for="train-name">Next Train Time</label>
-          <input class="form-control" type="text" id="train-time" placeholder="HH:MM"></input>
+          <label for="train-name">Starting Train Time</label>
+          <input class="form-control" type="time" id="train-time" placeholder="HH:MM"></input>
 
           <label for="train-name">Train frequency (Mins)</label>
           <input class="form-control" type="text" id="train-freq" placeholder="Train frequency"></input>
 
-          <button class = "btn btn-info">Submit</button>
+          <button class="btn btn-info">Submit</button>
 
 
         </div>
