@@ -7,11 +7,18 @@ let ref = database.ref()
 
 $(".btn").on("click", function () {
 
+
+
   if ($("#train-name").val() === "" || $("#train-time").val() === "" || $("#train-freq").val() === "" || $("#train-destination").val() === "") {
     let newDiv = $("<h4>");
-    newDiv.text("please fill all fields");
-    newDiv.css("color", "red")
-    $(".container-fluid").append(newDiv)
+    newDiv.text("Please fill all fields");
+    newDiv.css({"color": "red", "font-weight": "700", "font-size": "30px", "text-align": "center"})
+    $("#append-me-card").append(newDiv)
+    setTimeout(function(){
+      newDiv.remove()
+    },2000)
+    
+   
 
   }
   else {
@@ -20,23 +27,27 @@ $(".btn").on("click", function () {
     // console.log($("#train-time").val())
     destination = $("#train-destination").val()
     freq = $("#train-freq").val()
+    ref.push({
+      time: time,
+      name: name,
+      destination: destination,
+      freq: freq
+    });
   }
 
 
 
 
-  ref.push({
-    time: time,
-    name: name,
-    destination: destination,
-    freq: freq
-  });
 
 
 
 
 
 
+  $("#train-name").val('')
+  $("#train-time").val('')
+  $("#train-freq").val('')
+  $("#train-destination").val('')
 })
 
 

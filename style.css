@@ -25,3 +25,25 @@ label{
 .btn{
   margin-top:2vw;
 }
+
+.table-header{
+  color:white;
+  background:blue;
+  font-size:20px;
+  padding:5px;
+}
+
+th{
+  padding:5px;
+  margin:5px;
+}
+
+td{
+  padding:5px;
+  margin:5px;
+}
+
+h1{
+  text-align: center;
+  color:blue;
+}
